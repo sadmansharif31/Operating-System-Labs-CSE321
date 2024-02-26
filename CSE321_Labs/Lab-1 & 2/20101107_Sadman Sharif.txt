@@ -1,0 +1,396 @@
+==============================================
+1-(a)
+==============================================
+
+
+sadman@sadman:~$ cd Desktop
+
+sadman@sadman:~/Desktop$ touch 20101107_1.txt 20101107_2.txt 20101107_3.txt 20101107_4.txt
+
+sadman@sadman:~/Desktop$ mkdir sadman1 sadman2
+
+sadman@sadman:~/Desktop$ mv 20101107_1.txt sadman1
+
+sadman@sadman:~/Desktop$ mv 20101107_2.txt sadman1
+
+sadman@sadman:~/Desktop$ mv 20101107_3.txt sadman1
+
+sadman@sadman:~/Desktop$ cd sadman1
+
+sadman@sadman:~/Desktop/sadman1$ cp 20101107_1.txt 20101107_2.txt /home/sadman/Desktop/sadman2
+
+sadman@sadman:~/Desktop/sadman1$ cd Desktop
+
+bash: cd: Desktop: No such file or directory
+
+sadman@sadman:~/Desktop/sadman1$ cd /home/sadman/Desktop
+
+sadman@sadman:~/Desktop$ mkdir sadman3
+
+sadman@sadman:~/Desktop$ cp -r sadman1 sadman3
+
+sadman@sadman:~/Desktop$ cd sadman3
+
+sadman@sadman:~/Desktop/sadman3$ ls -l
+
+total 4
+
+drwxrwxr-x 2 sadman sadman 4096 নভেম্বর    2 16:48 sadman1
+
+sadman@sadman:~/Desktop/sadman3$ chmod g=rx sadman1
+
+sadman@sadman:~/Desktop/sadman3$ chmod o=rx sadman1
+
+sadman@sadman:~/Desktop/sadman3$ ls -l
+
+total 4
+
+drwxr-xr-x 2 sadman sadman 4096 নভেম্বর    2 16:48 sadman1
+
+sadman@sadman:~/Desktop/sadman3$ cd /home/sadman/Desktop
+
+sadman@sadman:~/Desktop$ ls
+
+20101107_4.txt  20101107.txt  sadman1  sadman2  sadman3
+
+sadman@sadman:~/Desktop$ mv sadman3/home/sadman
+
+sadman@sadman:~/Desktop$ mv sadman3 /home/sadman/
+
+sadman@sadman:~/Desktop$ rm 20101107_4.txt
+
+sadman@sadman:~/Desktop$ rm -r sadman1
+
+sadman@sadman:~/Desktop$ rm -r sadman2
+
+
+==============================================
+1-(b)
+==============================================
+
+
+sadman@sadman:~/Desktop$ cat > course.txt
+
+Course Name: Operating System
+
+Course code: CSE321
+
+Section-2
+
+sadman@sadman:~/Desktop$ grep -c CSE course.txt
+
+1
+
+
+==============================================
+1-(c)
+==============================================
+
+
+sadman@sadman:/home$ cd /
+
+sadman@sadman:/$ ls -A
+
+bin   cdrom  etc   lib    lib64   lost+found  mnt  proc  run   snap  swapfile  tmp  var
+
+boot  dev    home  lib32  libx32  media       opt  root  sbin  srv   sys       usr
+
+
+==============================================
+1-(d)
+==============================================
+
+
+sadman@sadman:/$ cd /home/sadman/Desktop
+
+sadman@sadman:~/Desktop$ cat > temp.txt
+
+a
+b
+c
+d
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+q
+r
+s
+t
+u
+v
+w
+x
+
+sadman@sadman:~/Desktop$ head -17 temp.txt|tail -13
+
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+q
+
+
+==============================
+C-programming 
+==============================
+
+==============================================
+2-(a)
+==============================================
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+	
+	int n_1;
+	int n_2; 
+	int r;
+	
+	
+	printf("Enter first number: ");
+	scanf("%d", &n_1);
+	printf("Enter second number: ");
+	scanf("%d", &n_2);
+	
+	if (n_1>n_2){
+	    r=n_1-n_2;
+		
+	
+	}
+	else if(n_1< n_2){
+		r=n_1+n_2;
+	}
+	else{
+		r=n_1*n_2;
+	}
+	printf("The answer is : %d\n", r);
+	
+	return 0;
+}
+
+
+==============================================
+2-(b)
+==============================================
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+
+{
+    FILE *fp;
+    char fb[255];
+    int fc;
+    
+    
+    fp=fopen("temp.txt","r");
+    
+    if (fp)
+    {
+        fgets(fb,255,fp);
+        printf("File contents:\n%s",fb);
+        fseek(fp,0,SEEK_SET);
+        
+        printf("\n\nAfter removing space: \n");
+        
+        do {
+            fc=fgetc(fp);
+            if (isgraph(fc))
+            {
+                putchar(fc);
+            }
+        }while(fc!=EOF);
+    fclose(fp);
+    }
+    
+    return 0;
+}
+
+
+
+==============================================
+2-(c)
+==============================================
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+int main(){
+    
+        char s_char[]={'#','@','_','$'};
+	char string[40];
+
+	printf("Enter the password :");
+	gets(string);
+	
+	int i = 0;
+	int capital=0;
+	int small=0;
+	int num=0;
+	int chr=0;
+	
+	
+	while(i< strlen(string)){
+		
+		if (num==0 && string[i]<='9' && string[i]>='0'){
+			num++;
+		}
+		
+		else if (small==0 && string[i]>='a' && string[i]<='z'){
+			small++;
+		}
+		
+		else if (capital==0 && string[i]>='A' && string[i] <= 'Z'){
+			capital++;
+		}
+		
+		
+		for(int k=0; k<4; k++){
+			if(string[i]==s_char[k]){
+				chr++;
+			}
+		}
+		if(num>0 && small>0 && chr>0 && capital>0){
+			printf("%s\n","OK");
+			break;
+		}
+		
+		i++;
+	
+	}
+	if (num==0){
+        printf("Digit missing\n");
+    	}
+
+    if (chr==0){
+        printf("Special character missing\n");
+    	}
+	if (capital==0){
+    
+        printf("\nUppercase character missing\n");
+    	}
+    if (small==0){
+        printf("Lowercase character missing\n");
+    	}
+    
+	return 0;
+}
+
+
+==============================================
+2-(d)
+==============================================
+
+
+#include <stdlib.h>
+#include <string.h>
+
+int main(){
+    
+	char email[40];
+	int con;
+	
+	const char neww[]="sheba.xyz";
+	int new_len=strlen(neww);
+	
+	
+	printf("Enter the address: ");
+	gets(email);
+	
+	int len=strlen(email);
+
+	
+	int j;
+        j=(len-new_len);
+        int ind=0;
+	
+	for(int k=0; k<new_len; k++){
+	    if(neww[k]==email[j]){
+	        ind++;
+		}
+		j++;
+	}
+		
+	if(ind==new_len){
+	    printf("%s\n","Email address is okay");
+		}
+		
+	else{
+	    printf("%s\n","Email address is outdated");
+	}
+	
+	return 0;
+}
+
+
+==============================================
+2-(e)
+==============================================
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+int main(){
+
+	char string[40];
+	int con;
+
+	printf("Enter the string: ");
+	gets(string);
+	
+	char* rep=string;
+	
+	int len=strlen(string);
+	int mid=len/2;
+	int k=len-1;
+	
+	int ind=0;
+	
+	for(int i=0;i<mid;i++){
+	    if(rep[k]==rep[i]){
+	        ind++;
+	    }
+		k--;
+	}
+		
+	if(ind==mid){
+	    printf("%s\n","Palindrome");
+	}
+		
+	else{
+	    printf("%s\n","Not Palindrome");
+	}
+
+	return 0;
+}
+
+
+
+
